@@ -24,22 +24,33 @@
     <section class="bg-gray-100 rounded-xl p-8 grid grid-cols-2">
         <div class="border-r border-gray-300 pr-8">
             <h3 class="text-2xl font-bold mb-6">Leave a Comment</h3>
-            <form action="" method="POST">
+            <form action="{{ route('posts.comment', $post) }}" method="POST">
+                @csrf
                 <div class="mb-6">
                     <label for="name" class="block font-bold mb-2">Name*</label>
-                    <input type="text" class="w-full bg-transparent border border-gray-400 rounded-full px-5 py-3"
-                        required>
+                    <input name="name" type="text"
+                        class="w-full bg-transparent border border-gray-400 rounded-full px-5 py-3" required>
+                    @error('name')
+                        <p class="mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mb-6">
                     <label for="email" class="block font-bold mb-2">Email</label>
-                    <input type="email" class="w-full bg-transparent border border-gray-400 rounded-full px-5 py-3">
+                    <input name="email" type="email"
+                        class="w-full bg-transparent border border-gray-400 rounded-full px-5 py-3">
+                    @error('email')
+                        <p class="mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mb-6">
                     <label for="comment" class="block font-bold mb-2">Comment*</label>
                     <textarea name="comment" id="comment" class="w-full bg-transparent border border-gray-400 rounded-3xl px-5 py-3"
                         rows="5" required></textarea>
+                    @error('comment')
+                        <p class="mt-2">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <button type="submit" class="bg-red-500 w-full px-5 py-3 rounded-full font-bold text-white">
@@ -49,18 +60,22 @@
         </div>
         <div class="pl-8">
             <h3 class="text-2xl font-bold mb-6">Comments</h3>
-            @foreach ([1, 2, 3, 4, 5] as $a)
+            @foreach ($post->comments as $comment)
                 <div class="mb-10">
                     <p class="flex gap-2 items-center mb-4">
                         <i class="fa-regular fa-circle-user"></i>
-                        <a href="mailto:johndoe@mail.com" class="underline">John Doe</a>
+                        @if ($comment->email)
+                            <a href="mailto:{{ $comment->email }}" class="underline">{{ $comment->name }}</a>
+                        @else
+                            {{ $comment->name }}
+                        @endif
                         <span class="text-gray-600">•</span>
-                        <span class="text-gray-600">12 minutes ago</span>
+                        <span class="text-gray-600">
+                            {{ \Carbon\Carbon::parse($comment->updated_at)->diffForhumans() }}
+                        </span>
                     </p>
                     <p class="leading-loose">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse tempore qui placeat aliquid
-                        debitis? Dolor ducimus officia impedit, vero similique facere eum maiores quisquam sit ut sed at
-                        iste nemo.
+                        {!! $comment->comment !!}
                     </p>
                 </div>
             @endforeach

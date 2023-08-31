@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Comment;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -87,5 +89,21 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function comment(Request $request, Post $post)
+    {
+        $validated_data = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'sometimes|nullable|email',
+            'comment' => 'required|max:255',
+        ]);
+
+        // $comment = new Comment($validated_data);
+        // $comment->post_id = $post->id;
+        // $comment->save();
+        $post->comments()->create($validated_data);
+
+        return redirect()->back()->with('success', 'Comment added successfully.');
     }
 }

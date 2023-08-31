@@ -23,3 +23,4 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/{post:slug}', [PostController::class, 'show'])->name('posts.show');
+Route::post('/{post:slug}/comment', [PostController::class, 'comment'])->name('posts.comment');
