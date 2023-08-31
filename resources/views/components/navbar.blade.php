@@ -12,7 +12,16 @@
             <a href="#" class="text-gray-600 hover:text-black">
                 <span>Write</span> <i class="fa-regular fa-pen-to-square ml-2"></i>
             </a>
-            <i class="fa-solid fa-circle-user text-3xl"></i>
+            <div class="relative group">
+                <i class="fa-solid fa-circle-user text-3xl"></i>
+                <div class="hidden group-hover:block absolute bg-white right-0 w-52 p-4 rounded-xl shadow">
+                    <p class="border-b border-gray-300 pb-2 text-gray-600">Hello, {{ auth()->user()->name }}!</p>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="mt-2">Logout</button>
+                    </form>
+                </div>
+            </div>
         @endauth
 
         @guest

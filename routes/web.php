@@ -21,6 +21,10 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
 });
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
+
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 Route::post('/{post:slug}/comment', [PostController::class, 'comment'])->name('posts.comment');
