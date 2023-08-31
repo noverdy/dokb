@@ -9,11 +9,22 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
+    /**
+     * Display the login page.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return view('login');
     }
 
+    /**
+     * Authenticate the user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function authenticate(Request $request)
     {
         $validated_data = $request->validate([

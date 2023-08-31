@@ -15,7 +15,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return view('index', [
+            'posts' => Post::inRandomOrder()->take(4)->get(),
+            'featured' => Post::inRandomOrder()->first(),
+        ]);
     }
 
     /**
@@ -47,7 +50,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('post', [
+            'post' => $post
+        ]);
     }
 
     /**
