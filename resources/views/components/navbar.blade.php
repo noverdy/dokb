@@ -8,10 +8,17 @@
         <a href="#" class="font-medium">Subscribe</a>
     </div>
     <div class="flex items-center gap-8">
-        {{-- <a href="#"><i class="fa-regular fa-bell"></i></a> --}}
-        {{-- <i class="fa-solid fa-circle-user text-3xl"></i> --}}
-        <a href="{{ route('login') }}">
-            <i class="fa-solid fa-right-to-bracket text-2xl"></i>
-        </a>
+        @auth
+            <a href="#" class="text-gray-600 hover:text-black">
+                <span>Write</span> <i class="fa-regular fa-pen-to-square ml-2"></i>
+            </a>
+            <i class="fa-solid fa-circle-user text-3xl"></i>
+        @endauth
+
+        @guest
+            <a href="{{ route('login') }}">
+                <i class="fa-solid fa-right-to-bracket text-2xl"></i>
+            </a>
+        @endguest
     </div>
 </nav>

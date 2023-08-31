@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'index')->name('home');
-Route::view('/login', 'login')->name('login');
+
+Route::get('/login', [AuthController::class, 'index'])->name('login');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
+
 Route::view('/{slug}', 'post');
