@@ -9,6 +9,8 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'author', 'category', 'reading_time', 'content', 'slug'];
+
     public function comments()
     {
         return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');

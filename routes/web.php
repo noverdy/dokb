@@ -26,5 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('/write', [PostController::class, 'create'])->name('posts.create');
+Route::post('/write', [PostController::class, 'store'])->name('posts.store');
 Route::get('/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 Route::post('/{post:slug}/comment', [PostController::class, 'comment'])->name('posts.comment');

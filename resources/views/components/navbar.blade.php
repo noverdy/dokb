@@ -9,7 +9,7 @@
     </div>
     <div class="flex items-center gap-8">
         @auth
-            <a href="#" class="text-gray-600 hover:text-black">
+            <a href="{{ route('posts.create') }}" class="text-gray-600 hover:text-black">
                 <span>Write</span> <i class="fa-regular fa-pen-to-square ml-2"></i>
             </a>
             <div class="relative group">

@@ -30,7 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -41,7 +41,17 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $data = $request->validated();
+        $slug = \Str::slug($data['title']);
+
+        while (Post::where('slug', $slug)->exists()) {
+            $slug = $slug . '-' . \Str::random(5);
+        }
+
+        $data['slug'] = $slug;
+        $post = Post::create($data);
+
+        return redirect()->route('posts.show', $post)->with('success', 'Post created successfully.');
     }
 
     /**
@@ -52,7 +62,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('post', [
+        return view('posts.show', [
             'post' => $post
         ]);
     }
