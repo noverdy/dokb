@@ -3,7 +3,7 @@
         <div class="flex items-center gap-8">
             <a href="{{ route('home') }}" class="text-3xl font-bold text-red-500">{{ config('app.name') }}</a>
             <span>|</span>
-            <p class="text-gray-600">Create a new post</p>
+            <p class="text-gray-600">Write a new story</p>
         </div>
         <div class="flex items-center gap-8">
             <button type="submit" form="form" class="bg-red-500 text-white px-2 py-1 text-xs rounded-full">
@@ -34,7 +34,7 @@
         <form id="form" action="{{ route('posts.store') }}" method="POST" class="flex h-full">
             @csrf
             <div class="border-r border-gray-300 pr-8 w-96">
-                <h2 class="text-3xl font-semibold mb-12">Post Details</h2>
+                <h2 class="text-3xl font-semibold mb-12">News Details</h2>
 
                 <input type="text" name="title" placeholder="Title" required
                     class="border-b-2 border-gray-300 w-full p-2 text-lg outline-none mb-2 focus:border-red-500">

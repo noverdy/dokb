@@ -11,15 +11,27 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     /**
+     * Display the home page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function home()
+    {
+        return view('index', [
+            'posts' => Post::inRandomOrder()->take(4)->get(),
+            'featured' => Post::inRandomOrder()->first(),
+        ]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('index', [
-            'posts' => Post::inRandomOrder()->take(4)->get(),
-            'featured' => Post::inRandomOrder()->first(),
+        return view('posts.index', [
+            'posts' => Post::latest()->get(),
         ]);
     }
 
