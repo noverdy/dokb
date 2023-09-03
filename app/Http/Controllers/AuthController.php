@@ -32,13 +32,12 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        $valid = DB::statement('SELECT password FROM users WHERE username = "' . $validated_data['username'] . '" AND password = "' . $validated_data['password'] . '"');
+        $valid = DB::select('SELECT * FROM users WHERE username = "' . $validated_data['username'] . '" AND password = "' . $validated_data['password'] . '"');
         if (!$valid) {
             return redirect()->route('login')->withErrors('Incorrect credentials.');
         }
 
-        $user = User::where('username', $validated_data['username'])->first();
-        Auth::login($user);
+        Auth::login(User::where(get_object_vars($valid[0]))->first());
         return redirect()->route('home');
     }
 
