@@ -121,11 +121,14 @@ class PostController extends Controller
             'comment' => 'required|max:255',
         ]);
 
-        // $comment = new Comment($validated_data);
-        // $comment->post_id = $post->id;
-        // $comment->save();
         $post->comments()->create($validated_data);
 
         return redirect()->back()->with('success', 'Comment added successfully.');
+    }
+
+    public function deleteComment(Request $request, Post $post, Comment $comment)
+    {
+        $comment->delete();
+        return redirect()->back()->with('success', 'Comment deleted successfully.');
     }
 }

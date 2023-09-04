@@ -24,7 +24,7 @@
     <section class="bg-gray-100 rounded-xl p-8 grid grid-cols-2">
         <div class="border-r border-gray-300 pr-8">
             <h3 class="text-2xl font-bold mb-6">Leave a Comment</h3>
-            <form action="{{ route('posts.comment', $post) }}" method="POST">
+            <form action="{{ route('comments.store', $post) }}" method="POST">
                 @csrf
                 <div class="mb-6">
                     <label for="name" class="block font-bold mb-2">Name*</label>
@@ -62,7 +62,7 @@
             <h3 class="text-2xl font-bold mb-6">Comments</h3>
             @foreach ($post->comments as $comment)
                 <div class="mb-10">
-                    <p class="flex gap-2 items-center mb-4">
+                    <div class="flex gap-2 items-center mb-4">
                         <i class="fa-regular fa-circle-user"></i>
                         @if ($comment->email)
                             <a href="mailto:{{ $comment->email }}" class="underline">{{ $comment->name }}</a>
@@ -73,7 +73,16 @@
                         <span class="text-gray-600">
                             {{ \Carbon\Carbon::parse($comment->updated_at)->diffForhumans() }}
                         </span>
-                    </p>
+                        @auth
+                            <span class="text-gray-600">•</span>
+                            <form action="{{ route('comments.destroy', [$post, $comment]) }}" method="POST">
+                                @method('DELETE') @csrf
+                                <button class="text-gray-600 hover:text-black">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        @endauth
+                    </div>
                     <p class="leading-loose">
                         {!! $comment->comment !!}
                     </p>
