@@ -7,15 +7,18 @@ use Illuminate\View\Component;
 
 class CardItem extends Component
 {
+    public $key;
+    public $post;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(
-        public int $key = 0,
-        public Post $post,
-    ) {
+    public function __construct(int $key = 0, Post $post)
+    {
+        $this->key = $key;
+        $this->post = $post;
     }
 
     /**

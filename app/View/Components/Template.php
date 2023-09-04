@@ -6,15 +6,17 @@ use Illuminate\View\Component;
 
 class Template extends Component
 {
+    public $navigation;
+    public $class;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(
-        public bool $navigation = true,
-        public string $class = '',
-    ) {
+    public function __construct(bool $navigation = true, string $class = '')
+    {
+        $this->navigation = $navigation;
+        $this->class = $class;
     }
 
     /**
